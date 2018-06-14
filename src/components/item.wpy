@@ -1,0 +1,29 @@
+<template>
+    <view  class="weui-cell weui-cell_access" hover-class="weui-cell_active" @tap="click">
+        <view class="weui-cell__hd">
+            <image style="margin-right: 10px;vertical-align: middle;width:23px; height: 23px;" src="{{item.icon}}"></image>
+        </view>
+        <text class="weui-cell__bd">{{item.title}}</text>
+        <view    class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class Item extends wepy.component {
+    props = {
+      item: {},
+      index: {}
+    }
+
+    methods = {
+      click(evt) {
+        console.log(`[clicked]GroupIndex:(${this.$parent.$index}) Index:(${this.$index}) Title:(${this.item.title})`)
+        if (this.item.action) {
+          this.item.action.call(this.$parent)
+        } else {
+            console.log(this.item)
+        }
+      }
+    }
+  }
+</script>

@@ -1,0 +1,68 @@
+<style lang="less">
+    @import "../../styles/weui/index.less";
+</style>
+<template>
+    <view class="page">
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+                <view  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{userInfo.avatarUrl}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title">{{bus.name}}</view>
+                        <view class="weui-media-box__desc">发车:{{bus.ToWorkStation}}</view>
+                        <view class="weui-media-box__desc">时间:{{bus.ToWorkStartTime}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel">
+        </view>
+        <view class="weui-panel">
+            <view class="weui-cells weui-cells_after-title">
+                <navigator wx:for="{{bus.stations}}" wx:key="id" wx:for-item="item"
+                           class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                    <view class="weui-cell__bd">{{item.name}}</view>
+                    <view class="weui-cell__ft ">
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import MockBus from '../../class/MockBus'
+  export default class bustList extends wepy.page {
+      components = {
+      }
+
+    config = {
+      navigationBarTitleText: '公交',
+      navigationBarTextStyle: 'white',
+      navigationBarBackgroundColor: '#049BFF'
+    }
+
+    data = {
+        bus: null,
+    }
+
+    onLoad(option) {
+        this.bus = MockBus.GetInstance().FindBusByName(option.name)
+        console.log(this.bus)
+        this.$apply()
+    }
+
+    onShow() {
+        console.log("show")
+    }
+
+    onPullDownRefresh() {
+    }
+
+    methods = {
+    }
+  }
+</script>

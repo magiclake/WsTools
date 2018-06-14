@@ -1,0 +1,153 @@
+<script>
+  import wepy from 'wepy'
+  import 'wepy-async-function'
+  export default class extends wepy.app {
+    config = {
+      pages: [
+          'pages/user',
+          'pages/index',
+        'pages/data',
+          'pages/Bus/busList',
+
+      ],
+      window: {
+        navigationBarTitleText: 'BookMall',
+        navigationBarTextStyle: 'white',
+        navigationBarBackgroundColor: '#049BFF',
+        backgroundColor: '#eaeaea',
+        backgroundTextStyle: 'light',
+        enablePullDownRefresh: true
+      },
+      tabBar: {
+        color: '#AEADAD',
+        selectedColor: '#049BFF',
+        backgroundColor: '#fff',
+        borderStyle: 'black',
+        list: [
+          {
+            pagePath: 'pages/index',
+            selectedIconPath: './images/discovery_active.png',
+            iconPath: './images/discovery.png',
+            text: '发现'
+          }, {
+            pagePath: 'pages/data',
+            selectedIconPath: './images/tabbars/icon-shelf-active@2x.png',
+            iconPath: './images/tabbars/icon-shelf@2x.png',
+            text: '班车'
+          }, {
+            pagePath: 'pages/user',
+            selectedIconPath: './images/me_active.png',
+            iconPath: './images/me.png',
+            text: '说明'
+          }]
+      },
+      networkTimeout: {
+        request: 5000,
+        downloadFile: 10000
+      },
+      debug: true
+    }
+
+    globalData = {
+      user: null,
+      cart: null,
+      connect_device: [],
+      currentScanDevice: {
+        name: null,
+        id: null
+      },
+      bleController: null,
+      bleDevice: null,
+      isRefreshDevices: true
+    }
+
+
+    getModel() { //获取手机型号
+      return this.globalData.sysinfo['model']
+    }
+
+    getVersion() { // 获取微信版本号
+      return this.globalData.sysinfo['version']
+    }
+
+    getSystem() { // 获取操作系统版本
+      return this.globalData.sysinfo['system']
+    }
+
+    getPlatform() { // 获取客户端平台
+      return this.globalData.sysinfo['platform']
+    }
+
+    getSDKVersion() { // 获取客户端基础库版本
+      return this.globalData.sysinfo['SDKVersion']
+    }
+
+    // 连接指定蓝牙设备
+      ConnectBleDevice(dev) {
+    }
+
+    onLaunch() {
+      this.globalData.sysinfo = wx.getSystemInfoSync()
+    }
+
+    onShow(options) {
+    }
+
+    /* ============= 工具方法（app没法用mixins，就再写一遍了） ============= */
+    isObject(item) {
+      return typeof item === 'object' && !this.isArray(item)
+    }
+
+    isArray(item) {
+      return Object.prototype.toString.apply(item) === '[object Array]'
+    }
+
+    isUndefined(item) {
+      return typeof item === 'undefined'
+    }
+
+  }
+</script>
+
+<style lang="less">
+    @import "./styles/weui/index.less";
+    @import "./styles/custom/index.less";
+    @import './styles/weui/weui.wxss';
+
+    page {
+        background-color: #F8F8F8;
+        font-size: 16px;
+        font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+    }
+
+    .page__hd {
+        padding: 40px;
+    }
+
+    .page__bd {
+        padding-bottom: 40px;
+    }
+
+    .page__bd_spacing {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .page__ft {
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .page__title {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .page__desc {
+        margin-top: 5px;
+        color: #888888;
+        text-align: left;
+        font-size: 14px;
+    }
+</style>

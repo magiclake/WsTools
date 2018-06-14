@@ -1,0 +1,71 @@
+<template>
+    <view class="page">
+        <BusList/>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import bs from '../components/weisheng'
+
+  export default class pageData extends wepy.page {
+    components = {
+      BusList:bs
+    }
+
+    config = {
+      navigationBarTitleText: '威胜班车',
+      navigationBarTextStyle: 'white',
+      navigationBarBackgroundColor: '#049BFF'
+    }
+
+    data = {
+      batList: [],
+      bleDevice: {},
+      noMoreList: false,
+      loading: false,
+      list: [],
+      page: 0,
+      size: 5,
+      ptl: {},
+      bleName: 'N/A',
+      bleId: 'N/A',
+    }
+
+
+    /**
+     * 初始化数据项
+     */
+    initPtlNames() {
+    }
+
+
+    onShow() {
+    }
+
+    onPullDownRefresh() {
+    }
+
+    onReachBottom() {
+    }
+
+    // 初始化页面数据
+    initPageData() {
+      // 初始化参数
+      this.page = 0
+    }
+
+    methods = {}
+  }
+</script>
+
+<style lang="less">
+    .page-index {
+        // some style
+    }
+
+    .soc {
+        display: block;
+        margin: 0 auto;
+    }
+</style>

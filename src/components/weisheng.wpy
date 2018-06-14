@@ -1,0 +1,73 @@
+
+<style>
+    .hide{
+        display:none
+    }
+</style>
+<template>
+    <view>
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+                <view  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{userInfo.avatarUrl}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title">威胜班车线路</view>
+                        <view class="weui-media-box__desc">2018-06-12</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <SearchBar/>
+                        <view  wx:for="{{list}}" wx:key="id" wx:for-item="item">
+
+
+
+                        <view  wx:if="{{item.hidden}}">
+
+                        </view>
+                        <view wx:else>
+                            <view class="weui-panel weui-panel_access">
+                            <navigator   hover-class="weui-cell_active"
+
+                                         class="'weui-cell weui-cell_access"
+                                         url="../pages/Bus/busList?name={{item.name}}"
+                            >
+                                <view  class="weui-cell__bd">
+                                    <view style="display: inline-block; vertical-align: middle">{{item.name}}</view>
+                                </view>
+                                <view    class="weui-cell__ft weui-cell__ft_in-access"></view>
+                            </navigator>
+                        </view>
+                        </view>
+            </view>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+    import MockBus from '../class/MockBus'
+  import searchBar from './serachbar'
+  export default class Weisheng extends wepy.component {
+      components = {
+        SearchBar:searchBar
+      }
+      data = {
+          list: MockBus.GetInstance().Buses
+      }
+      methods = {}
+      events = {
+                  'updateSearch-event': ($event) => {
+                        console.log("updateBus")
+                    this.list = []
+                    console.log(this.list)
+      this.$apply()
+      setTimeout(()=>{
+              this.list = MockBus.GetInstance().Buses
+                this.$apply()
+        })
+      console.log(this.list)
+                }
+        }
+  }
+</script>

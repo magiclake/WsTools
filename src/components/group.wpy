@@ -1,0 +1,53 @@
+<style type="scss">
+    $border: 1px solid #eeeeee;
+    .list {
+        margin-top: 40 rpx;
+        background-color: #fff;
+        border-bottom: $border;
+        .item {
+            height: 100 rpx;
+            position: relative;
+            box-sizing: border-box;
+            padding: 20 rpx;
+            border-bottom: $border;
+            .icon {
+                width: 60 rpx;
+                height: 60 rpx;
+                position: absolute;
+                margin-left: 15 rpx;
+            }
+            .arrow_left {
+                position: absolute;
+                right: 20 rpx;
+                width: 30 rpx;
+                height: 40 rpx;
+                margin-top: -42rpx;
+            }
+            .title {
+                padding: 18 rpx 0 0 100 rpx;
+                display: block;
+                font-size: 33 rpx;
+                margin-top: -12rpx;
+            }
+        }
+    }
+</style>
+<template>
+    <view class="list">
+        <repeat for="{{list}}" item="item" index="index" key="key">
+            <item :item="item" :index="index"></item>
+        </repeat>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Item from './item'
+  export default class Group extends wepy.component {
+    props = {
+      list: {}
+    }
+    components = {
+      item: Item
+    }
+  }
+</script>

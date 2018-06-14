@@ -1,0 +1,58 @@
+<style type="css">
+    .discovery {
+        background-color:#f0eff5;
+        height: 100%;
+        padding-top: 0 rpx;
+    }
+</style>
+<template>
+    <view class="discovery">
+        <repeat for="{{list}}" key="index" index="index" item="item">
+            <group :list="item"></group>
+        </repeat>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Group from './group'
+
+  export default class Message extends wepy.component {
+    components = {
+      /* moment: List,
+      action: List,
+      drift: List,
+      shopping: List, */
+      group: Group
+    }
+    data = {
+      // dMoment: [{icon: wepy.env === 'web' ? './images/moment.png' : '../images/moment.png', title: '朋友圈'}],
+      // dShopping: [{icon: wepy.env === 'web' ? './images/shopping.png' : '../images/shopping.png', title: '购物'}],
+      // dDrift: [{icon: wepy.env === 'web' ? './images/drift.png' : '../images/drift.png', title: '漂流瓶'}],
+      dAction: [{
+        icon: wepy.env === 'web' ? './images/scan.png' : '../images/scan.png',
+        title: '扫码连接'
+      }        // {icon: wepy.env === 'web' ? './images/shake.png' : '../images/shake.png', title: '摇一摇'}
+      ],
+      list: {
+        //  dMoment: [{icon: wepy.env === 'web' ? './images/moment.png' : '../images/moment.png', title: '朋友圈'}],
+        // dShopping: [{icon: wepy.env === 'web' ? './images/shopping.png' : '../images/shopping.png', title: '购物'}],
+        //  dDrift: [{icon: wepy.env === 'web' ? './images/drift.png' : '../images/drift.png', title: '漂流瓶'}],
+        dAction: [
+          {
+            icon: wepy.env === 'web' ? './images/scan.png' : '../images/scan.png',
+            title: '班车查询',
+            action:function () {
+                wx.switchTab({
+                    url: '/pages/data'
+                })
+            }
+          }// {icon: wepy.env === 'web' ? './images/shake.png' : '../images/shake.png', title: '摇一摇'}
+        ]
+      }
+    }
+    methods = {}
+
+    onLoad() {
+    }
+  }
+</script>

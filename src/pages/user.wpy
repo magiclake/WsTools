@@ -1,0 +1,52 @@
+<style type="css">
+
+</style>
+<template>
+    <view class="page__hd">
+        <view class="page__title">说明</view>
+        <view class="page__desc">本工具为方便在威胜工作生活而开发，目前只支持威胜班车查询。</view>
+    </view>
+    <view class="weui-footer weui-footer_fixed-bottom">
+        <text class="weui-footer__links">
+             Magic
+        </text>
+        <text class="weui-footer__text">Copyright © 2018-2026 magic.lake@163.com</text>
+    </view>
+</template>
+
+
+<script>
+  import wepy from 'wepy'
+
+
+  export default class pageUser extends wepy.page {
+    config = {
+      navigationBarTitleText: '说明',
+      enablePullDownRefresh: false
+    }
+
+    data = {
+      userInfo: {
+        nickName: '加载中...',
+        id: 'gcaufy',
+        // 头像占位图
+        avatarUrl: '../images/icon/icon-avatar@2x.png'
+      },
+      devCounts: 0
+    }
+    computed = {}
+
+    onReady() {
+    }
+
+    onLoad() {
+      var that = this
+    }
+
+    onShow() {
+    }
+
+    methods = {}
+    components = {}
+  }
+</script>

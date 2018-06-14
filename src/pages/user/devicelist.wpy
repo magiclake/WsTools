@@ -1,0 +1,80 @@
+<style lang="less">
+    @import "../../styles/weui/index.less";
+</style>
+<template>
+    <view class="page">
+        <view class="page__hd">
+            <view class="page__title">尚无</view>
+        </view>
+        <!--
+        <view wx:if="{{list.length>0}}">
+
+            <view wx:for="{{list}}" wx:for-item="item" style="background: white;" class="weui-panel weui-panel_access">
+
+                <view class="weui-cell__bd">
+                    <view class="weui-media-box weui-media-box_text">
+                        <view class="weui-media-box__title">{{item.name}}</view>
+                        <view class="weui-media-box__desc">{{item.devId}}</view>
+                        <view class="weui-media-box__desc">上次连接:{{item.lastConnectTime}}
+                            <view style="vertical-align:middle;  display: block; float: right;">
+                                <button class="weui-btn mini-btn" style="margin-left: 10px;" type="primary"
+                                        data-category="{{item}}" bindtap="ConnectItem" size="mini">连接
+                                </button>
+                                <button class="weui-btn mini-btn" style="margin-left: 10px;" type="warn"
+                                        data-category="{{item}}" bindtap="deleteItem" size="mini">删除
+                                </button>
+                            </view>
+
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+        </view>
+        <view wx:else>
+            <view class="page__desc" style="margin: 20px;font-size: 16px;text-align: center;">我当前的设备没有连接过设备。</view>
+        </view>
+        -->
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class bleDeviceList extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的',
+      navigationBarTextStyle: 'white',
+      navigationBarBackgroundColor: '#049BFF'
+    }
+    data = {
+      list: null,
+      bleController: BleController.GetInstance()
+    }
+
+    onLoad() {
+    }
+
+    onShow() {
+      this.list = BleController.GetInstance().GetQRStorage()
+      this.$apply()
+    }
+
+    onPullDownRefresh() {
+    }
+
+    methods = {
+      deleteItem(e) {
+        console.log(e)
+        let cat = e.currentTarget.dataset.category
+        this.bleController.DeleteQRStorageItem(cat)
+        this.list = this.bleController.GetQRStorage()
+        this.$apply()
+      },
+      async ConnectItem(e) {
+        let dev = e.currentTarget.dataset.category
+        await this.$parent.ConnectBleDevice(dev)
+      }
+    }
+    components = {}
+  }
+</script>

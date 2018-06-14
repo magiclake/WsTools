@@ -1,0 +1,90 @@
+<style type="scss">
+    page, .body {
+        height: 100%;
+        font-family: '\5FAE\8F6F\96C5\9ED1', arial;
+        background-color: #f0eff5;
+    }
+</style>
+
+<template>
+    <Discovery/>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import discovery from '../components/discovery'
+
+  export default class pageIndex extends wepy.page {
+    config = {
+      navigationBarTitleText: '威胜工具',
+      navigationBarTextStyle: 'white',
+      navigationBarBackgroundColor: '#049BFF'
+    }
+    data = {
+      noMoreList: false,
+      loading: false,
+      list: [],
+      page: 0,
+      size: 5,
+      latestCode: null
+    }
+
+    onReady() {
+      console.log('准备调用完成!')
+      if (this.$parent.getPlatform() === 'android' && this.versionCompare('6.5.7', this.$parent.getVersion())) {
+        wx.showModal({
+          title: '提示',
+          content: '当前微信版本过低，请更新至最新版本',
+          showCancel: false
+        })
+      }
+      else if (this.$parent.getPlatform() === 'ios' && this.versionCompare('6.5.6', this.$parent.getVersion())) {
+        wx.showModal({
+          title: '提示',
+          content: '当前微信版本过低，请更新至最新版本',
+          showCancel: false
+        })
+      }
+    }
+
+    versionCompare(ver1, ver2) { //版本比较
+      var version1pre = parseFloat(ver1)
+      var version2pre = parseFloat(ver2)
+      var version1next = parseInt(ver1.replace(version1pre + '.', ''))
+      var version2next = parseInt(ver2.replace(version2pre + '.', ''))
+      if (version1pre > version2pre)
+        return true
+      else if (version1pre < version2pre)
+        return false
+      else {
+        if (version1next > version2next)
+          return true
+        else
+          return false
+      }
+    }
+
+
+    onShow() {
+    }
+
+    onPullDownRefresh() {
+
+    }
+
+    onReachBottom() {
+    }
+
+    // 初始化页面数据
+    initPageData() {
+      // 初始化参数
+      this.page = 0
+    }
+
+    methods = {}
+
+    components = {
+      Discovery: discovery
+    }
+  }
+</script>
