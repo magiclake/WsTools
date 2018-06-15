@@ -1,0 +1,47 @@
+<style lang="less">
+    @import "../../styles/weui/index.less";
+</style>
+<template>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+        <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="请输入留言内容"  />
+            <view class="weui-textarea-counter">0/200</view>
+        </view>
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" @tap="showTopTips">提交</button>
+        </view>
+    </view>
+</view>
+    </template>
+
+<script>
+    import wepy from 'wepy'
+    export default class LeaveMessage extends wepy.page {
+        config = {
+            navigationBarTitleText: '留言',
+            navigationBarTextStyle: 'white',
+            navigationBarBackgroundColor: '#049BFF'
+        }
+        data = {
+            list: null,
+        }
+
+        onLoad() {
+        }
+
+        onShow() {
+            this.$apply()
+        }
+
+        onPullDownRefresh() {
+        }
+
+        methods = {
+            showTopTips(){
+
+            }
+        }
+    components = {}
+    }
+</script>

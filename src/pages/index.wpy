@@ -7,6 +7,9 @@
 </style>
 
 <template>
+  <!-- 需要使用 button 来授权登录
+  <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  <view wx:else>请升级微信版本</view> -->
     <Discovery/>
 </template>
 
@@ -26,7 +29,11 @@
       list: [],
       page: 0,
       size: 5,
-      latestCode: null
+      latestCode: null,
+      canIUse: wx.canIUse('button.open-type.getUserInfo')
+    }
+
+    onLoad(){
     }
 
     onReady() {
@@ -45,6 +52,7 @@
           showCancel: false
         })
       }
+
     }
 
     versionCompare(ver1, ver2) { //版本比较

@@ -1,0 +1,134 @@
+<style >
+    .msg-container{
+        margin-top: 40rpx;
+    }
+
+    .userinfo-avatar {
+        position: absolute;
+        overflow:hidden;
+        display: block;
+        width: 90rpx;
+        height:90rpx;
+        margin: 10rpx;
+        margin-top: 10rpx;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        float: left;
+    }
+    .name{
+        color:darkslategray;
+        margin-top: 10rpx;
+        margin-left: 10rpx;
+        display: block;
+    }
+    .time{
+        margin-right: 10rpx;
+        font-size: 25rpx;
+        float: right;
+    }
+    .msg{
+        margin-left: 120rpx;
+    }
+</style>
+<template>
+        <view style="margin:20rpx;">
+             留言:
+            <text style="float:right;color:blue;margin-right: 10rpx;" @tap="gotowritemsg">写留言</text>
+        </view>
+        <view class="msg-container">
+                 <view >
+                     <image src="{{userInfo.avatarUrl}}"  class="userinfo-avatar" ></image>
+                 </view>
+            <view class="msg">
+                <view class="name">{{userInfo.nickName}}</view>
+                <text >顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶</text>
+                <text class="time">{{userInfo.time}}</text>
+            </view>
+        </view>
+        <view class="msg-container">
+            <view >
+                <image src="{{userInfo.avatarUrl}}"  class="userinfo-avatar" ></image>
+            </view>
+            <view class="msg">
+                <view class="name">{{userInfo.nickName}}</view>
+                <view class="time">{{userInfo.time}}</view>
+                <text >幅度萨芬</text>
+            </view>
+        </view>
+        <view class="msg-container">
+            <view >
+                <image src="{{userInfo.avatarUrl}}"  class="userinfo-avatar" ></image>
+            </view>
+            <view class="msg">
+                <view class="name">{{userInfo.nickName}}</view>
+                <text >法大师傅打发的大飞洒发的</text>
+                <text class="time">{{userInfo.time}}</text>
+            </view>
+        </view>
+        <view class="msg-container">
+            <view >
+                <image src="{{userInfo.avatarUrl}}"  class="userinfo-avatar" ></image>
+            </view>
+            <view class="msg">
+                <view class="name">{{userInfo.nickName}}</view>
+                <text >fdsafdsa</text>
+                <text class="time">{{userInfo.time}}</text>
+            </view>
+        </view>
+        <view style="margin-top: 50rpx;">
+            <button class="btn">加载更多</button>
+        </view>
+</template>
+<script>
+    import wepy from 'wepy';
+    export default class Chartboard extends wepy.component {
+
+        Prop={
+            bus:null
+        }
+
+        data ={
+            message: [],
+            focus: false,
+            userInfo: {
+                nickName: '加载中...',
+                id: 'gcaufy',
+                // 头像占位图
+                avatarUrl: '../images/icon/icon-avatar@2x.png',
+                msg:'adfsadfsafsadf',
+                time:'2018-02-03 12:22:23'
+            }
+        }
+
+        methods = {
+            gotowritemsg(){
+                wx.navigateTo({
+                    url: '/pages/user/leavemsg?bus='+this.bus.name
+                })
+                console.log(this.bus)
+            }
+        }
+
+        onLoad () {
+            var that = this
+            // 查看是否授权
+            wx.getSetting({
+                success: function(res){
+                    if (res.authSetting['scope.userInfo']) {
+                        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                        wx.getUserInfo({
+                            success: function(res1) {
+                                ['nickName', 'avatarUrl'].forEach((v) => that.userInfo[v] = res1.userInfo[v])
+                                console.log(that.data)
+                                console.log(res1)
+                                that.$apply()
+                            }
+                        })
+                    }
+                }
+            })
+
+        }
+    }
+</script>

@@ -1,7 +1,40 @@
 <style type="css">
 
+    .userinfo {
+        position: relative;
+        width: 750rpx;
+        height: 320rpx;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .userinfo-avatar {
+        overflow:hidden;
+        display: block;
+        width: 160rpx;
+        height: 160rpx;
+        margin: 20rpx;
+        margin-top: 50rpx;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .userinfo text {
+        color: #fc8c84;
+        font-size: 14px;
+        border-radius:40%;
+    }
 </style>
 <template>
+    <view class="userinfo">
+        <view class="userinfo-avatar">
+            <image style="width: 180rpx; height: 180rpx;"  src="{{userInfo.avatarUrl}}"></image>
+        </view>
+        <text >{{userInfo.nickName}}</text>
+    </view>
     <view class="page__hd">
         <view class="page__title">说明</view>
         <view class="page__desc">本工具为方便在威胜工作生活而开发，目前只支持威胜班车查询。</view>
@@ -10,15 +43,14 @@
         <text class="weui-footer__links">
              Magic
         </text>
-        <text class="weui-footer__text">Copyright © 2018-2026 magic.lake@163.com</text>
+        <text class="weui-footer__text">Made by magic.lake@163.com</text>
     </view>
 </template>
 
 
 <script>
   import wepy from 'wepy'
-
-
+import api from '../class/Api'
   export default class pageUser extends wepy.page {
     config = {
       navigationBarTitleText: '说明',
@@ -38,10 +70,26 @@
 
     onReady() {
     }
+      onLoad () {
+          var that = this
+          // 查看是否授权
+          wx.getSetting({
+                      success: function(res){
+                          if (res.authSetting['scope.userInfo']) {
+                              // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                              wx.getUserInfo({
+                                  success: function(res1) {
+                                      ['nickName', 'avatarUrl'].forEach((v) => that.userInfo[v] = res1.userInfo[v])
+                                      console.log(that.data)
+                                      console.log(res1)
+                                      that.$apply()
+                                  }
+                              })
+                          }
+                      }
+          })
+      }
 
-    onLoad() {
-      var that = this
-    }
 
     onShow() {
     }

@@ -4,10 +4,11 @@
   export default class extends wepy.app {
     config = {
       pages: [
-          'pages/user',
           'pages/index',
+          'pages/user',
         'pages/data',
           'pages/Bus/busList',
+              'pages/user/leavemsg'
 
       ],
       window: {

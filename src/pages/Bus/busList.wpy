@@ -7,7 +7,7 @@
             <view class="weui-panel__bd">
                 <view  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
                     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" src="{{userInfo.avatarUrl}}" />
+                        <image class="weui-media-box__thumb" src="{{busimg}}" />
                     </view>
                     <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                         <view class="weui-media-box__title">{{bus.name}}</view>
@@ -16,8 +16,6 @@
                     </view>
                 </view>
             </view>
-        </view>
-        <view class="weui-panel">
         </view>
         <view class="weui-panel">
             <view class="weui-cells weui-cells_after-title">
@@ -29,14 +27,18 @@
                 </navigator>
             </view>
         </view>
+        <CB :bus="{{bus}}"/>
     </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   import MockBus from '../../class/MockBus'
+  import chartboard from '../../components/chartboard'
+
   export default class bustList extends wepy.page {
       components = {
+        CB:chartboard
       }
 
     config = {
@@ -47,6 +49,7 @@
 
     data = {
         bus: null,
+        busimg:'../../images/buss.png'
     }
 
     onLoad(option) {
